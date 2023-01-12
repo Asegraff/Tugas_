@@ -1,62 +1,113 @@
-[Project]
-FileName=kasir.dev
-Name=kasir
-Type=1
-Ver=2
-ObjFiles=
-Includes=
-Libs=
-PrivateResource=
-ResourceIncludes=
-MakeIncludes=
-Compiler=
-CppCompiler=
-Linker=
-IsCpp=1
-Icon=
-ExeOutput=
-ObjectOutput=
-LogOutput=
-LogOutputEnabled=0
-OverrideOutput=0
-OverrideOutputName=
-HostApplication=
-UseCustomMakefile=0
-CustomMakefile=
-CommandLine=
-Folders=
-IncludeVersionInfo=0
-SupportXPThemes=0
-CompilerSet=2
-CompilerSettings=0000000000000000100000000
-UnitCount=1
+#include<iostream>
+#include<iomanip>
+using namespace std;
 
-[VersionInfo]
-Major=1
-Minor=0
-Release=0
-Build=0
-LanguageID=1033
-CharsetID=1252
-CompanyName=
-FileVersion=
-FileDescription=Developed using the Dev-C++ IDE
-InternalName=
-LegalCopyright=
-LegalTrademarks=
-OriginalFilename=
-ProductName=
-ProductVersion=
-AutoIncBuildNr=0
-SyncProduct=1
+struct programmer{
+    string user_id="xander";
+    string password="12345";
+    string namaProgrammer="..++..";
+};
+programmer pro;
 
-[Unit1]
-FileName=kasir.cpp
-CompileCpp=1
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
+struct barang{
+    string namaBarang;
+    string kodeBarang;
+    string supplier;
+    int jumlahStock;
+};
+int jumlahBarang;
 
+void line(){
+	for(int i=0;i<50;i++){
+		cout<<"=";
+	}cout<<endl;
+}
+
+void menuUtama(){
+    cout<<"Menu Utama"<<endl;
+    line();
+    cout<<"[I] Tampil data inventory"<<endl;
+    cout<<"[P] Pengambilan barang"<<endl;
+    cout<<"[E] Exit"<<endl;
+    cout<<"Pilihan [I/P/E]?";
+}
+
+int main(){
+    string user_id;
+    string password;
+    char pilih;
+    string ambilKode;
+    int jumlahAmbil;
+    int j;
+    int coba=0;
+    do{
+        cout<<"Data Aktifitas"<<endl;
+        cout<<"PT 'supply'"<<endl;
+        cout<<"Programmer : "<<pro.namaProgrammer<<endl;
+        cout<<"Login "<<endl;
+        cout<<"User Id: ";cin>>user_id;
+        cout<<"Password: ";cin>>password;
+        if(user_id==pro.user_id && password==pro.password)
+            coba=100;
+        else
+            coba++;
+        if(coba ==3)
+            exit(0);
+    }while(coba<3);
+
+    cout<<"Input berapa barang?";
+    cin>>jumlahBarang;
+    barang barangDagang[jumlahBarang];
+    cout<<"Input Data"<<endl;
+    for (int i = 0; i < jumlahBarang; i++)
+    {
+        cout<<"Barang ke-"<<i+1<<endl;
+        cout<<"Kode Barang : ";cin>>barangDagang[i].kodeBarang;
+        cout<<"nama barang : ";cin.ignore();getline(cin, barangDagang[i].namaBarang);
+        cout<<"stock : ";cin>>barangDagang[i].jumlahStock;
+        cout<<"supplier : ";cin.ignore(); getline(cin, barangDagang[i].supplier);
+    }
+
+    do{
+        menuUtama();
+        cin>>pilih;
+        switch (pilih)
+        {
+        case 'I':
+                cout<<setiosflags(ios::left);
+                cout<<setw(5)<<"No"<<setw(12)<<"Kode Barang"<<setw(20)<<"Nama Barang"<<setw(10)<<"Stock"<<setw(20)
+                    <<"Supplier"<<endl;
+                line();
+                for (int i = 0; i < jumlahBarang; i++)
+                {
+                    cout<<setw(5)<<i+1<<setw(12)<<barangDagang[i].kodeBarang<<setw(20)<<barangDagang[i].namaBarang<<setw(10)<<barangDagang[i].jumlahStock<<setw(20)
+                        <<barangDagang[i].supplier<<endl;
+                }
+                
+            break;
+        case 'P':
+            line();
+                cout<<"Kode Barang : ";cin>>ambilKode;
+                cout<<"Jumlah Diambil : ";cin>>jumlahAmbil;
+                j=0;
+                for ( ; j < jumlahBarang; j++)
+                {
+                    if(ambilKode==barangDagang[j].kodeBarang){
+                        barangDagang[j].jumlahStock -= jumlahAmbil;
+                        break;
+                    }
+                        
+                }
+                cout<<"sisa Barang : "<<barangDagang[j].jumlahStock<<endl;
+            line();
+            break;
+        case 'E':
+            exit(0);
+            break;
+        default:
+            break;
+        }
+        cout<<"Kembali ke Menu utama?[Y/T]";cin>>pilih;
+    }while(pilih=='Y');
+
+}
