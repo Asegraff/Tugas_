@@ -1,62 +1,14 @@
-[Project]
-FileName=menghitung tabung.dev
-Name=menghitung tabung
-Type=1
-Ver=2
-ObjFiles=
-Includes=
-Libs=
-PrivateResource=
-ResourceIncludes=
-MakeIncludes=
-Compiler=
-CppCompiler=
-Linker=
-IsCpp=1
-Icon=
-ExeOutput=
-ObjectOutput=
-LogOutput=
-LogOutputEnabled=0
-OverrideOutput=0
-OverrideOutputName=
-HostApplication=
-UseCustomMakefile=0
-CustomMakefile=
-CommandLine=
-Folders=
-IncludeVersionInfo=0
-SupportXPThemes=0
-CompilerSet=2
-CompilerSettings=0000000000000000100000000
-UnitCount=1
-
-[VersionInfo]
-Major=1
-Minor=0
-Release=0
-Build=0
-LanguageID=1033
-CharsetID=1252
-CompanyName=
-FileVersion=
-FileDescription=Developed using the Dev-C++ IDE
-InternalName=
-LegalCopyright=
-LegalTrademarks=
-OriginalFilename=
-ProductName=
-ProductVersion=
-AutoIncBuildNr=0
-SyncProduct=1
-
-[Unit1]
-FileName=tabung.cpp
-CompileCpp=1
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
+#include <iostream>
+using namespace std;
+int main()
+{
+	int r,t,volume;
+	cout<<"===volume tabung=="<<endl;
+	cout<<"masukan jari-jari : ";
+	cin>>r;
+	cout<<"masukan tinggi : ";
+	cin>>t;
+	volume= 22/7*r*r*t;
+	cout<<"jadi volume tabung dengan jari-jari "<<r<<"dan tinggi "<<t<<"adalah : "<<volume;
+	return 0;
+}
