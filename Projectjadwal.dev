@@ -1,62 +1,137 @@
-[Project]
-FileName=Projectjadwal.dev
-Name=Project3
-Type=1
-Ver=2
-ObjFiles=
-Includes=
-Libs=
-PrivateResource=
-ResourceIncludes=
-MakeIncludes=
-Compiler=
-CppCompiler=
-Linker=
-IsCpp=1
-Icon=
-ExeOutput=
-ObjectOutput=
-LogOutput=
-LogOutputEnabled=0
-OverrideOutput=0
-OverrideOutputName=
-HostApplication=
-UseCustomMakefile=0
-CustomMakefile=
-CommandLine=
-Folders=
-IncludeVersionInfo=0
-SupportXPThemes=0
-CompilerSet=2
-CompilerSettings=0000000000000000100000000
-UnitCount=1
+#include <iostream>
+#include <string>
 
-[VersionInfo]
-Major=1
-Minor=0
-Release=0
-Build=0
-LanguageID=1033
-CharsetID=1252
-CompanyName=
-FileVersion=
-FileDescription=Developed using the Dev-C++ IDE
-InternalName=
-LegalCopyright=
-LegalTrademarks=
-OriginalFilename=
-ProductName=
-ProductVersion=
-AutoIncBuildNr=0
-SyncProduct=1
+using namespace std;
+struct kode_airlane{
+  string kode;
+	 
+};	
 
-[Unit1]
-FileName=jadwal.cpp
-CompileCpp=1
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
+struct airlanes{
+	string nama;
+};
+	
+struct flight{
+    string kode;
+	};
+	
+struct tujuan{
+	string kota;
+};
+
+struct time{
+    string time;
+};
+
+struct terminal{
+	string kode;
+};
+
+struct remark{
+	string intruksi;
+};
+
+int main(){
+	kode_airlane code1,code2,code3,code4;
+	airlanes als1,als2,als3,als4;
+	flight flt1,flt2,flt3,flt4;
+	tujuan tjn1,tjn2,tjn3,tjn4;
+	time tm1,tm2,tm3,tm4;
+	terminal tml1,tml2,tml3,tml4;
+	remark rmk1,rmk2,rmk3,rmk4;
+
+//kode airlane	
+ code1.kode="01A1";
+ code2.kode="02E1";
+ code3.kode="01A2";
+ code4.kode="02E2";
+ 
+ //air lanes
+ als1.nama="Angkasa";
+ als2.nama="Eagle";
+ als3.nama="Angkasa";
+ als4.nama="Eagle";
+ 
+ //flight
+ 
+ flt1.kode="IW";
+ flt2.kode="ID";
+ flt3.kode="IW";
+ flt4.kode="ID";
+ 
+ //tujuan
+  tjn1.kota="surabaya";
+  tjn2.kota="pontianak";
+  tjn3.kota="pekanbaru";
+  tjn4.kota="denpasar";
+  
+  //time 
+  tm1.time= "08:20";
+  tm2.time= "09:00";
+  tm3.time= "10:00";
+  tm4.time= "10:40";
+  
+  //terminal
+  tml1.kode="A";
+  tml2.kode="A";
+  tml3.kode="B";
+  tml4.kode="B";
+  
+  //remark
+  rmk1.intruksi="holding";
+  rmk2.intruksi="Landed 09:48";
+  rmk3.intruksi="Holding";
+  rmk4.intruksi="Landed 10:15";
+  
+	cout<<"     JADWAL KEBERANGKATAN       "<<endl;
+	cout<<"       BULAN APRIL 2022         "<<endl;
+	cout<<"         BANDARA  XYZ           "<<endl;
+	cout<<"--------------------------------"<<endl;
+	cout<<"KODE AIRLANE ="<<code1.kode<<endl;                          
+	cout<<"AIRLANE      ="<<als1.nama<<endl;
+	cout<<"FLIGHT       ="<<flt1.kode<<endl;
+	cout<<"TUJUAN       ="<<tjn1.kota<<endl;
+	cout<<"TIME         ="<<tm1.time<<endl;
+	cout<<"TERMINAL     ="<<tml1.kode<<endl;
+	cout<<"REMARK       ="<<rmk1.intruksi<<endl;
+	cout<<"-----------------------------------"<<endl;
+	
+    cout<<"KODE AIRLANE ="<<code2.kode<<endl;                          
+	cout<<"AIRLANE      ="<<als2.nama<<endl;
+	cout<<"FLIGHT       ="<<flt2.kode<<endl;
+	cout<<"TUJUAN       ="<<tjn2.kota<<endl;
+	cout<<"TIME         ="<<tm2.time<<endl;
+	cout<<"TERMINAL     ="<<tml2.kode<<endl;
+	cout<<"REMARK       ="<<rmk2.intruksi<<endl;
+	cout<<"-----------------------------------"<<endl;
+	
+    cout<<"KODE AIRLANE ="<<code3.kode<<endl;                          
+	cout<<"AIRLANE      ="<<als3.nama<<endl;
+	cout<<"FLIGHT       ="<<flt3.kode<<endl;
+	cout<<"TUJUAN       ="<<tjn3.kota<<endl;
+	cout<<"TIME         ="<<tm3.time<<endl;
+	cout<<"TERMINAL     ="<<tml3.kode<<endl;
+	cout<<"REMARK       ="<<rmk3.intruksi<<endl;
+	cout<<"-----------------------------------"<<endl;
+	
+    cout<<"KODE AIRLANE ="<<code4.kode<<endl;                          
+	cout<<"AIRLANE      ="<<als4.nama<<endl;
+	cout<<"FLIGHT       ="<<flt4.kode<<endl;
+	cout<<"TUJUAN       ="<<tjn4.kota<<endl;
+	cout<<"TIME         ="<<tm4.time<<endl;
+	cout<<"TERMINAL     ="<<tml4.kode<<endl;
+	cout<<"REMARK       ="<<rmk4.intruksi<<endl;
+	cout<<"-----------------------------------"<<endl;
+
+
+ printf ("\t\t                     Jadwal Penerbangan Bandara XYZ                                      \n");
+ printf ("===============================================================================================\n");
+ printf ("|  kode airlane  |  Tujuan   |  Airlane    |   Flight  |   Terminal  |  Time   |  Remark      |\n");
+ printf ("===============================================================================================\n");
+ printf ("|     01A1       | surabaya  | Angkasa     |    IW     |      A      | 08 : 20 | holding      |\n");
+ printf ("|     02E1       | pontianak | Eagle       |    ID     |      A      | 09 : 00 | landed 09:48 |\n");
+ printf ("|     01A2       | pekanbaru | Angkasa     |    IW     |      B      | 10 : 00 | holding      |\n");
+ printf ("|     02E2       | denpasar  | Eagle       |    ID     |      B      | 10 : 40 | landed 10:15 |\n");
+ printf ("===============================================================================================\n");
+};
 
