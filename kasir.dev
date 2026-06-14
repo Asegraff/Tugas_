@@ -1,5 +1,7 @@
 #include<iostream>
 #include<iomanip>
+#include<vector>
+#include<cctype>
 using namespace std;
 
 struct programmer{
@@ -15,31 +17,86 @@ struct barang{
     string supplier;
     int jumlahStock;
 };
-int jumlahBarang;
 
 void line(){
-	for(int i=0;i<50;i++){
-		cout<<"=";
-	}cout<<endl;
+    for(int i=0;i<50;i++){
+        cout<<"=";
+    }cout<<endl;
 }
 
 void menuUtama(){
+    cout<<endl;
     cout<<"Menu Utama"<<endl;
     line();
     cout<<"[I] Tampil data inventory"<<endl;
     cout<<"[P] Pengambilan barang"<<endl;
     cout<<"[E] Exit"<<endl;
-    cout<<"Pilihan [I/P/E]?";
+    cout<<"Pilihan [I/P/E]? ";
+}
+
+void tampilInventory(vector<barang>& barangDagang){
+    cout<<endl;
+    cout<<setiosflags(ios::left);
+    cout<<setw(5)<<"No"<<setw(12)<<"Kode Barang"<<setw(20)<<"Nama Barang"<<setw(10)<<"Stock"<<setw(20)<<"Supplier"<<endl;
+    line();
+    for (int i = 0; i < barangDagang.size(); i++)
+    {
+        cout<<setw(5)<<i+1<<setw(12)<<barangDagang[i].kodeBarang<<setw(20)<<barangDagang[i].namaBarang
+            <<setw(10)<<barangDagang[i].jumlahStock<<setw(20)<<barangDagang[i].supplier<<endl;
+    }
+    line();
+}
+
+void pengambilanBarang(vector<barang>& barangDagang){
+    line();
+    string ambilKode;
+    int jumlahAmbil;
+    
+    cout<<"Kode Barang : ";cin>>ambilKode;
+    cout<<"Jumlah Diambil : ";cin>>jumlahAmbil;
+    
+    int indexFound = -1;
+    
+    // Cari barang dengan kode yang sesuai
+    for (int j = 0; j < barangDagang.size(); j++)
+    {
+        if(ambilKode == barangDagang[j].kodeBarang){
+            indexFound = j;
+            break;
+        }
+    }
+    
+    // Validasi hasil pencarian
+    if(indexFound == -1){
+        cout<<"ERROR: Kode barang '"<<ambilKode<<"' tidak ditemukan!"<<endl;
+    }
+    // Validasi jumlah pengambilan
+    else if(jumlahAmbil <= 0){
+        cout<<"ERROR: Jumlah yang diambil harus lebih dari 0!"<<endl;
+    }
+    // Validasi stock cukup
+    else if(jumlahAmbil > barangDagang[indexFound].jumlahStock){
+        cout<<"ERROR: Stock tidak cukup!"<<endl;
+        cout<<"Stock saat ini : "<<barangDagang[indexFound].jumlahStock<<endl;
+    }
+    // Proses pengambilan barang
+    else{
+        barangDagang[indexFound].jumlahStock -= jumlahAmbil;
+        cout<<"Pengambilan berhasil!"<<endl;
+        cout<<"Barang : "<<barangDagang[indexFound].namaBarang<<endl;
+        cout<<"Sisa Stock : "<<barangDagang[indexFound].jumlahStock<<endl;
+    }
+    line();
 }
 
 int main(){
     string user_id;
     string password;
     char pilih;
-    string ambilKode;
-    int jumlahAmbil;
-    int j;
     int coba=0;
+    int jumlahBarang;
+    
+    // Login
     do{
         cout<<"Data Aktifitas"<<endl;
         cout<<"PT 'supply'"<<endl;
@@ -47,67 +104,76 @@ int main(){
         cout<<"Login "<<endl;
         cout<<"User Id: ";cin>>user_id;
         cout<<"Password: ";cin>>password;
-        if(user_id==pro.user_id && password==pro.password)
+        
+        if(user_id==pro.user_id && password==pro.password){
+            cout<<"Login berhasil!"<<endl;
             coba=100;
-        else
+        }
+        else{
             coba++;
-        if(coba ==3)
-            exit(0);
+            if(coba == 3){
+                cout<<"Kesempatan login habis!"<<endl;
+                return 0;
+            }
+            cout<<"User Id atau Password salah! Kesempatan tinggal "<<(3-coba)<<" kali."<<endl;
+        }
     }while(coba<3);
 
-    cout<<"Input berapa barang?";
+    // Input jumlah barang
+    cout<<endl;
+    cout<<"Input berapa barang? ";
     cin>>jumlahBarang;
-    barang barangDagang[jumlahBarang];
+    
+    if(jumlahBarang <= 0){
+        cout<<"Jumlah barang harus lebih dari 0!"<<endl;
+        return 0;
+    }
+    
+    vector<barang> barangDagang(jumlahBarang);
+    
+    // Input data barang
     cout<<"Input Data"<<endl;
     for (int i = 0; i < jumlahBarang; i++)
     {
         cout<<"Barang ke-"<<i+1<<endl;
         cout<<"Kode Barang : ";cin>>barangDagang[i].kodeBarang;
-        cout<<"nama barang : ";cin.ignore();getline(cin, barangDagang[i].namaBarang);
-        cout<<"stock : ";cin>>barangDagang[i].jumlahStock;
-        cout<<"supplier : ";cin.ignore(); getline(cin, barangDagang[i].supplier);
+        cout<<"Nama barang : ";cin.ignore();getline(cin, barangDagang[i].namaBarang);
+        cout<<"Stock : ";cin>>barangDagang[i].jumlahStock;
+        cout<<"Supplier : ";cin.ignore(); getline(cin, barangDagang[i].supplier);
     }
 
+    // Menu utama
     do{
         menuUtama();
         cin>>pilih;
+        
+        // Convert input ke uppercase
+        pilih = toupper(pilih);
+        
         switch (pilih)
         {
         case 'I':
-                cout<<setiosflags(ios::left);
-                cout<<setw(5)<<"No"<<setw(12)<<"Kode Barang"<<setw(20)<<"Nama Barang"<<setw(10)<<"Stock"<<setw(20)
-                    <<"Supplier"<<endl;
-                line();
-                for (int i = 0; i < jumlahBarang; i++)
-                {
-                    cout<<setw(5)<<i+1<<setw(12)<<barangDagang[i].kodeBarang<<setw(20)<<barangDagang[i].namaBarang<<setw(10)<<barangDagang[i].jumlahStock<<setw(20)
-                        <<barangDagang[i].supplier<<endl;
-                }
-                
+            tampilInventory(barangDagang);
             break;
+            
         case 'P':
-            line();
-                cout<<"Kode Barang : ";cin>>ambilKode;
-                cout<<"Jumlah Diambil : ";cin>>jumlahAmbil;
-                j=0;
-                for ( ; j < jumlahBarang; j++)
-                {
-                    if(ambilKode==barangDagang[j].kodeBarang){
-                        barangDagang[j].jumlahStock -= jumlahAmbil;
-                        break;
-                    }
-                        
-                }
-                cout<<"sisa Barang : "<<barangDagang[j].jumlahStock<<endl;
-            line();
+            pengambilanBarang(barangDagang);
             break;
+            
         case 'E':
-            exit(0);
-            break;
+            cout<<"Terima kasih telah menggunakan sistem ini!"<<endl;
+            return 0;
+            
         default:
+            cout<<"Pilihan tidak valid! Silahkan pilih [I/P/E]"<<endl;
             break;
         }
-        cout<<"Kembali ke Menu utama?[Y/T]";cin>>pilih;
+        
+        cout<<"Kembali ke Menu utama?[Y/T]: ";cin>>pilih;
+        pilih = toupper(pilih);
+        
     }while(pilih=='Y');
-
+    
+    cout<<"Program berakhir."<<endl;
+    return 0;
 }
